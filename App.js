@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, ActivityIndicator } from 'react-native';
 import Constants from 'expo-constants';
 import * as Location from 'expo-location';
 import axios from 'axios';
+import CurrentWeather from './components/CurrentWeather';
 
 const API_URL = (lat, lon) =>
   `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=2a8fb0bcdd810f17dd9981361e9e9eb0&lang=fr&units=metric`;
@@ -51,7 +52,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text> {data?.city?.name}</Text>
+      <CurrentWeather data={data} />
     </View>
   );
 }
@@ -60,8 +61,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
+    backgroundColor: '#303030',
     padding: 8,
   },
 });
