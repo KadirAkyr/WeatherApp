@@ -5,6 +5,7 @@ import * as Location from 'expo-location';
 import axios from 'axios';
 import CurrentWeather from './components/CurrentWeather';
 
+// URL pour fetch les données
 const API_URL = (lat, lon) =>
   `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=2a8fb0bcdd810f17dd9981361e9e9eb0&lang=fr&units=metric`;
 
