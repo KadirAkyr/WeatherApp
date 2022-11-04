@@ -2,7 +2,7 @@ import { isSameDay } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 
-const getIcon = (icon) => `http://openweathermap.org/img/wn/${icon}@2x.png`
+const getIcon = (icon) => `http://openweathermap.org/img/wn/${icon}@4x.png`
 
 export default function CurrentWeather({data}) {
 
@@ -20,6 +20,7 @@ useEffect(() => {
     return(
         <>
             <Text style={styles.city}>{data?.city?.name}</Text>
+            <Text style={styles.today}>Aujourd'hui</Text>
             <Image 
             source={{ 
                 uri: getIcon(currentWeather?.weather[0].icon),
@@ -34,15 +35,24 @@ useEffect(() => {
 
 const styles = StyleSheet.create({
     city: {
+        fontSize: 36,
+        fontWeight: "500"
+    },
+    today: {
+        fontSize:  24,
+        fontWeight: "300"
+    },
+    img:{
+        width: 150,
+        height: 150,
+        marginVertical: 20
     },
 temp: {
-
+    fontSize: 80,
+    fontWeight: "bold"
 },
 desc: {
-
+    fontSize:  24,
+    fontWeight: "bold"
 },
-img:{
-    width: 150,
-    height: 150
-}
 })
