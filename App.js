@@ -1,9 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, ActivityIndicator } from 'react-native';
-import Constants from 'expo-constants';
-import * as Location from 'expo-location';
-import axios from 'axios';
-import CurrentWeather from './components/CurrentWeather';
+import React, { useEffect, useState } from "react";
+import {
+  SafeAreaView,
+  View,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
+import Constants from "expo-constants";
+import * as Location from "expo-location";
+import axios from "axios";
+import CurrentWeather from "./components/CurrentWeather";
+import Forecasts from "./components/Forecasts";
 
 // URL pour fetch les données
 const API_URL = (lat, lon) =>
@@ -20,7 +26,7 @@ export default function App() {
     // Demander l'autorisation pour accéder à la localisation du téléphone
     const getCoordiantes = async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
+      if (status !== "granted") {
         return;
       }
       const userLocation = await Location.getCurrentPositionAsync();
@@ -35,9 +41,8 @@ export default function App() {
       const response = await axios.get(
         API_URL(location.coords.latitude, location.coords.longitude)
       );
-      setData(response.data)
-      setLoading(false)
-
+      setData(response.data);
+      setLoading(false);
     } catch (e) {
       console.log("Erreur dans getWeather" + e);
     }
@@ -45,26 +50,27 @@ export default function App() {
 
   if (loading) {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <ActivityIndicator />
-      </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <CurrentWeather data={data} />
-    </View>
+      <Forecasts data={data} />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#FFE5B4',
+    backgroundColor: "#FFE5B4",
     padding: 8,
   },
 });
