@@ -1,6 +1,7 @@
 import { isSameDay } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const getIcon = (icon) => `http://openweathermap.org/img/wn/${icon}@4x.png`
 
@@ -36,11 +37,13 @@ useEffect(() => {
 const styles = StyleSheet.create({
     city: {
         fontSize: 36,
-        fontWeight: "500"
+        fontWeight: "500",
+        color: "#130D33"
     },
     today: {
         fontSize:  24,
-        fontWeight: "300"
+        fontWeight: "300",
+        color: "#130D33"
     },
     img:{
         width: 150,
@@ -49,10 +52,12 @@ const styles = StyleSheet.create({
     },
 temp: {
     fontSize: 80,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    color: "#130D33"
 },
 desc: {
     fontSize:  24,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    color: "#130D33"
 },
 })
