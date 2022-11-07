@@ -18,9 +18,26 @@ export default function Forecasts({ data }) {
         name: format(dt, "EEEE", { locale: fr }),
       };
     });
-    setForecasts(forecastsData);
+    let newForecastsData = forecastsData
+      .map((forecast) => {
+        return forecast.name;
+      })
+      .filter((day, index, self) => {
+        // return true
+        return self.indexOf(day) === index;
+      })
+      .map((day) => {
+        // {day: name, data: [forecast, forecast]}
+        return {
+          day,
+          data: forecastsData.filter((forecast) => forecast.name === day),
+        };
+      });
+
+    setForecasts(newForecastsData);
   }, [data]);
 
+  // {day: name, data: [forecast, forecast]}
   return (
     <ScrollView
       horizontal
@@ -29,8 +46,12 @@ export default function Forecasts({ data }) {
     >
       {forecasts.map((f) => (
         <View>
-          <Text>{f.name}</Text>
-          <Weather forecast={f} />
+          <Text style={styles.day}>{f.day.toUpperCase()}</Text>
+          <View style={styles.container}>
+            {f.data.map((w) => (
+              <Weather forecast={w} />
+            ))}
+          </View>
         </View>
       ))}
     </ScrollView>
@@ -41,5 +62,16 @@ const styles = StyleSheet.create({
   scrollView: {
     width: "100%",
     height: "35%",
+  },
+  container: {
+    flexDirection: "row",
+    marginLeft: 5,
+    marginRight: 20,
+  },
+  day: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 10,
+    paddingLeft: 10,
   },
 });
