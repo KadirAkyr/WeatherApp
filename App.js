@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  SafeAreaView,
-  View,
-  StyleSheet,
-  ActivityIndicator,
-} from "react-native";
+import { SafeAreaView, StyleSheet, ActivityIndicator } from "react-native";
 import Constants from "expo-constants";
 import * as Location from "expo-location";
 import axios from "axios";

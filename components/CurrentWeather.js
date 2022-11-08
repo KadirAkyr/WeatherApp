@@ -1,7 +1,6 @@
 import { isSameDay } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet, Image } from "react-native";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const getIcon = (icon) => `http://openweathermap.org/img/wn/${icon}@4x.png`;
 
