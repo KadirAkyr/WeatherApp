@@ -4,6 +4,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   Button,
+  Text,
 } from "react-native";
 import Constants from "expo-constants";
 import * as Location from "expo-location";
@@ -15,7 +16,7 @@ import Forecasts from "./Forecasts";
 const API_URL = (lat, lon) =>
   `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=2a8fb0bcdd810f17dd9981361e9e9eb0&lang=fr&units=metric`;
 
-export default function Home({ navigation }) {
+export default function Home({ navigation, route }) {
   // useState pour stocker la localisation et en l'initialisant à null
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
@@ -55,14 +56,18 @@ export default function Home({ navigation }) {
       </SafeAreaView>
     );
   }
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <CurrentWeather data={data} />
-      <Forecasts data={data} />
-      <Button title="Go to Menu" onPress={() => navigation.navigate("Menu")} />
-    </SafeAreaView>
-  );
+  if (data) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <CurrentWeather data={data} />
+        <Forecasts data={data} />
+        <Button
+          title="Go to Menu"
+          onPress={() => navigation.navigate("Menu")}
+        />
+      </SafeAreaView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({

@@ -20,7 +20,7 @@ export default function weather({ forecast }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#E8AA42",
-    height: 140,
+    height: 120,
     width: 70,
     paddingVertical: 6,
     justifyContent: "center",
