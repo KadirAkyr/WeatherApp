@@ -3,6 +3,7 @@ import { Text } from "react-native";
 import Home from "./components/Home/Home";
 import Menu from "./components/City/Menu";
 import CityWeather from "./components/City/CityWeather";
+import CityOverView from "./components/City/CityOverview";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
@@ -23,6 +24,7 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Menu" component={Menu} />
         <Stack.Screen name="City" component={CityWeather} />
+        <Stack.Screen name="CityOverview" component={CityOverView} />
       </Stack.Navigator>
     </NavigationContainer>
   );

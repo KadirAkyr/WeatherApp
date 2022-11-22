@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, TextInput, Button } from "react-native";
+import { Text, View, StyleSheet, TextInput } from "react-native";
+import CityOverView from "./CityOverview";
+const storageData = require("./storage.json");
 
 export default function Menu({ navigation }) {
   const submit = (newCity) => {
@@ -9,19 +10,20 @@ export default function Menu({ navigation }) {
       merge: true,
     });
   };
-
   return (
-    <View style={styles.container}>
-      <View>
-        <Text style={styles.title}> Recherchez une nouvelle ville </Text>
+    <View>
+      <View style={styles.container}>
         <TextInput
           style={styles.input}
-          placeholder="Entrez le nom d'une ville"
+          placeholder="Entrez une nouvelle ville"
           onEndEditing={(newCity) => submit(newCity)}
         />
       </View>
-      <View style={styles.liste}>
-        <Text>Liste ville ici </Text>
+      <Text style={styles.divider}> ──────── Saved Cities ────────</Text>
+      <View>
+        {storageData.cities.map((city) => (
+          <CityOverView city={city} />
+        ))}
       </View>
     </View>
   );
@@ -33,17 +35,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  title: {
-    fontSize: 30,
-    marginTop: 20,
-  },
   input: {
     height: 40,
+    width: 200,
     margin: 12,
-    borderWidth: 1,
+    borderWidth: 2,
     padding: 10,
+    borderRadius: 50,
+    backgroundColor: "white",
   },
-  liste: {
-    marginTop: 20,
+  divider: {
+    alignSelf: "center",
+    marginTop: 10,
   },
 });
