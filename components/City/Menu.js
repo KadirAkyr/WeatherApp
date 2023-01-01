@@ -1,9 +1,14 @@
-import { Text, View, StyleSheet, TextInput } from "react-native";
+import { Text, View, StyleSheet, TextInput, ScrollView } from "react-native";
 import CityOverView from "./CityOverview";
 const storageData = require("./storage.json");
 
 export default function Menu({ navigation }) {
   const submit = (newCity) => {
+    // Si storage data contient pas la ville écit on l'ajoute au tableau sinon on ne fait rien.
+    if (!storageData.cities.includes(newCity.nativeEvent.text)) {
+      storageData.cities.push(newCity.nativeEvent.text);
+    }
+
     navigation.navigate({
       name: "City",
       params: { city: newCity.nativeEvent.text },
@@ -16,15 +21,16 @@ export default function Menu({ navigation }) {
         <TextInput
           style={styles.input}
           placeholder="Entrez une nouvelle ville"
+          autoCorrect={false}
           onEndEditing={(newCity) => submit(newCity)}
         />
       </View>
       <Text style={styles.divider}> ──────── Saved Cities ────────</Text>
-      <View>
+      <ScrollView>
         {storageData.cities.map((city) => (
           <CityOverView city={city} />
         ))}
-      </View>
+      </ScrollView>
     </View>
   );
 }
