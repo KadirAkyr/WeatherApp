@@ -5,10 +5,10 @@ import { fr } from "date-fns/locale";
 
 import Weather from "./Weather";
 
-export default function Forecasts({ data }) {
+export default function Forecasts({ dataForecasts }) {
   const [forecasts, setForecasts] = useState([]);
   useEffect(() => {
-    const forecastsData = data.list.map((f) => {
+    const forecastsData = dataForecasts.list.map((f) => {
       const dt = new Date(f.dt * 1000);
       return {
         date: dt,
@@ -27,7 +27,7 @@ export default function Forecasts({ data }) {
         return self.indexOf(day) === index;
       })
       .map((day) => {
-        // {day: name, data: [forecast, forecast]}
+        // {day: name, dataForecasts: [forecast, forecast]}
         return {
           day,
           data: forecastsData.filter((forecast) => forecast.name === day),
@@ -35,7 +35,7 @@ export default function Forecasts({ data }) {
       });
 
     setForecasts(newForecastsData);
-  }, [data]);
+  }, [dataForecasts]);
 
   // {day: name, data: [forecast, forecast]}
   return (
@@ -49,7 +49,7 @@ export default function Forecasts({ data }) {
           <Text style={styles.day}>{f.day.toUpperCase()}</Text>
           <View style={styles.container}>
             {f.data.map((w) => (
-              <Weather forecast={w} />
+              <Weather key={w.id} forecast={w} />
             ))}
           </View>
         </View>

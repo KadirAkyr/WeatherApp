@@ -28,7 +28,7 @@ export default function Menu({ navigation }) {
       <Text style={styles.divider}> ──────── Saved Cities ────────</Text>
       <ScrollView>
         {storageData.cities.map((city) => (
-          <CityOverView city={city} />
+          <CityOverView key={city} city={city} />
         ))}
       </ScrollView>
     </View>

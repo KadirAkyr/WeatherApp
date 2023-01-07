@@ -59,8 +59,8 @@ export default function Home({ navigation, route }) {
   if (data) {
     return (
       <SafeAreaView style={styles.container}>
-        <CurrentWeather data={data} />
-        <Forecasts data={data} />
+        <CurrentWeather dataCurrent={data} />
+        <Forecasts dataForecasts={data} />
         <Button
           title="Go to Menu"
           onPress={() => navigation.navigate("Menu")}

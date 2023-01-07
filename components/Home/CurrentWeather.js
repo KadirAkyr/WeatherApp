@@ -4,20 +4,21 @@ import { Text, View, StyleSheet, Image } from "react-native";
 
 const getIcon = (icon) => `http://openweathermap.org/img/wn/${icon}@4x.png`;
 
-export default function CurrentWeather({ data }) {
+export default function CurrentWeather({ dataCurrent }) {
   const [currentWeather, setCurrentWeather] = useState(null);
 
   useEffect(() => {
-    const currentW = data.list.filter((forecast) => {
-      const today = new Date().getTime() + Math.abs(data.city.timezone * 1000);
+    const currentW = dataCurrent.list.filter((forecast) => {
+      const today =
+        new Date().getTime() + Math.abs(dataCurrent.city.timezone * 1000);
       const forecastDate = new Date(forecast.dt * 1000);
       return isSameDay(today, forecastDate);
     });
     setCurrentWeather(currentW[0]);
-  }, [data]);
+  }, [dataCurrent]);
   return (
     <View style={styles.container}>
-      <Text style={styles.city}>{data?.city?.name}</Text>
+      <Text style={styles.city}>{dataCurrent?.city?.name}</Text>
       <Text style={styles.today}>Aujourd'hui</Text>
       <Image
         source={{

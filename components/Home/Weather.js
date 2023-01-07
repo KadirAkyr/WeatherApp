@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Text, View, StyleSheet, Image } from "react-native";
 
-export default function weather({ forecast }) {
+export default function Weather({ forecast }) {
   const getIcon = (icon) => `http://openweathermap.org/img/wn/${icon}@2x.png`;
   return (
     <View style={styles.container}>
