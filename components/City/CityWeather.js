@@ -27,8 +27,8 @@ export default function CityWeather({ navigation, route }) {
   if (data) {
     return (
       <View style={styles.container}>
-        <CurrentWeather data={data} />
-        <Forecasts data={data} />
+        <CurrentWeather dataCurrent={data} />
+        <Forecasts dataForecasts={data} />
       </View>
     );
   }
