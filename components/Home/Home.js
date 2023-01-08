@@ -12,6 +12,8 @@ import axios from "axios";
 import CurrentWeather from "./CurrentWeather";
 import Forecasts from "./Forecasts";
 
+import * as Notifications from "expo-notifications";
+
 // URL pour fetch les données
 const API_URL = (lat, lon) =>
   `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=2a8fb0bcdd810f17dd9981361e9e9eb0&lang=fr&units=metric`;
@@ -33,7 +35,20 @@ export default function Home({ navigation, route }) {
       const userLocation = await Location.getCurrentPositionAsync();
       getWeather(userLocation);
     };
+
+    // Demander l'autorisation pour les notifications
+    const requestNotifications = async () => {
+      return await Notifications.requestPermissionsAsync({
+        ios: {
+          allowAlert: true,
+          allowBadge: true,
+          allowSound: true,
+          allowAnnouncements: true,
+        },
+      });
+    };
     getCoordiantes();
+    requestNotifications();
   }, []);
 
   // Réaliser la requête pour avoir les données
