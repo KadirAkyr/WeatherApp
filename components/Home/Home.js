@@ -10,6 +10,7 @@ import axios from "axios";
 import CurrentWeather from "./CurrentWeather";
 import Forecasts from "./Forecasts";
 import * as Location from "expo-location";
+import { uniqueId } from "lodash";
 
 // URL pour fetch les données
 const API_URL = (lat, lon) =>
@@ -54,11 +55,12 @@ export default function Home({ navigation, route }) {
       </SafeAreaView>
     );
   }
+
   if (data) {
     return (
       <SafeAreaView style={styles.container}>
-        <CurrentWeather dataCurrent={data} />
-        <Forecasts dataForecasts={data} />
+        <CurrentWeather key={data} dataCurrent={data} />
+        <Forecasts key={"uniqueKey"} dataForecasts={data} />
         <Button
           title="Go to Menu"
           onPress={() => navigation.navigate("Menu")}
