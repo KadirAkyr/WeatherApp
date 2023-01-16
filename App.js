@@ -9,7 +9,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import { useEffect, useRef, useState } from "react";
-import { TouchableOpacity, Text, SafeAreaView } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
@@ -78,26 +77,8 @@ export default function App() {
     };
   }, []);
 
-  const onClick = async () => {
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "title",
-        body: "body",
-        data: { data: "data goes here" },
-      },
-      trigger: { seconds: 1 },
-    });
-  };
-
   return (
     <NavigationContainer>
-      <SafeAreaView>
-        <TouchableOpacity onPress={onClick}>
-          <Text style={{ backgroundColor: "red", color: "white" }}>
-            Click me{" "}
-          </Text>
-        </TouchableOpacity>
-      </SafeAreaView>
       <Stack.Navigator
         initialRouteName="Home"
         screenOptions={{

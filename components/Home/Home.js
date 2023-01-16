@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import {
-  SafeAreaView,
   StyleSheet,
+  SafeAreaView,
   ActivityIndicator,
   Button,
-  Text,
 } from "react-native";
 import Constants from "expo-constants";
-import * as Location from "expo-location";
 import axios from "axios";
 import CurrentWeather from "./CurrentWeather";
 import Forecasts from "./Forecasts";
+import * as Location from "expo-location";
 
 // URL pour fetch les données
 const API_URL = (lat, lon) =>
@@ -31,6 +30,8 @@ export default function Home({ navigation, route }) {
       getWeather(userLocation);
     };
     getCoordiantes();
+    //10800000 = 3 heures
+    setInterval(() => getCoordiantes(), 10800000);
   }, []);
 
   // Réaliser la requête pour avoir les données
