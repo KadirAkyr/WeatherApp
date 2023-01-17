@@ -10,7 +10,6 @@ import axios from "axios";
 import CurrentWeather from "./CurrentWeather";
 import Forecasts from "./Forecasts";
 import * as Location from "expo-location";
-import { uniqueId } from "lodash";
 
 // URL pour fetch les données
 const API_URL = (lat, lon) =>
