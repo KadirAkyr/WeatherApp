@@ -1,47 +1,31 @@
-import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, TextInput, Button } from "react-native";
-import { Card } from "react-native-paper";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 
 export default function CityOverView({ navigation, city }) {
   const submit = () => {
-    console.log(city);
     navigation.navigate({
       name: "City",
       params: { city: city },
       merge: true,
     });
   };
+
   return (
-    <Card onPress={() => submit()} style={styles.card}>
-      <Card.Title title={city} style={styles.city} />
-      <Card.Cover
-        style={styles.cover}
-        source={{
-          uri: `https://source.unsplash.com/random/350x200/?${city}`,
-        }}
-      />
-    </Card>
+    <View>
+      <TouchableOpacity onPressOut={() => submit()} style={styles.container}>
+        <Text style={styles.title}>{city}</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  card: {
-    marginTop: 15,
+  title: {
+    fontSize: 36,
+    textTransform: "capitalize",
   },
-  city: {
-    position: "absolute",
-    zIndex: 1,
-    top: 0,
-    left: 10,
-  },
-  cover: {
-    alignSelf: "center",
-    width: 350,
-    height: 150,
-    borderWidth: 1,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+  container: {
+    marginTop: 20,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
