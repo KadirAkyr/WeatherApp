@@ -1,19 +1,23 @@
 import { Text, View, StyleSheet, TextInput, ScrollView } from "react-native";
 import CityOverView from "./CityOverview";
 const storageData = require("./storage.json");
+import React from "react";
 
 export default function Menu({ navigation }) {
-  const submit = (newCity) => {
-    // Si storage data contient pas la ville écit on l'ajoute au tableau sinon on ne fait rien.
-    if (!storageData.cities.includes(newCity.nativeEvent.text)) {
-      storageData.cities.push(newCity.nativeEvent.text);
-    }
+  const [text, onChangeText] = React.useState("Useless Text");
 
-    navigation.navigate({
-      name: "City",
-      params: { city: newCity.nativeEvent.text },
-      merge: true,
-    });
+  const submit = () => {
+    //Enlever les espaces avant et après le mot et tout mettre en minuscule
+    const city = text.trim().toLocaleLowerCase();
+    try {
+      navigation.navigate({
+        name: "City",
+        params: { city: city },
+        merge: true,
+      });
+    } catch (e) {
+      console.log("Erreur dans Menu.js " + e);
+    }
   };
   return (
     <View>
@@ -21,14 +25,16 @@ export default function Menu({ navigation }) {
         <TextInput
           style={styles.input}
           placeholder="Entrez une nouvelle ville"
-          autoCorrect={false}
-          onEndEditing={(newCity) => submit(newCity)}
+          value={text}
+          onChangeText={onChangeText}
+          clearTextOnFocus={true}
+          onEndEditing={() => submit()}
         />
       </View>
-      <Text style={styles.divider}> ──────── Saved Cities ────────</Text>
+      <Text style={styles.divider}> ───── Saved Cities ─────</Text>
       <ScrollView>
         {storageData.cities.map((city) => (
-          <CityOverView key={city} city={city} />
+          <CityOverView key={city} city={city} navigation={navigation} />
         ))}
       </ScrollView>
     </View>
@@ -53,5 +59,6 @@ const styles = StyleSheet.create({
   divider: {
     alignSelf: "center",
     marginTop: 10,
+    fontSize: 20,
   },
 });

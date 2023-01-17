@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+const storageData = require("./storage.json");
+import { View, StyleSheet, Text, SafeAreaView, Alert } from "react-native";
 import axios from "axios";
 
 import CurrentWeather from "../Home/CurrentWeather";
@@ -9,27 +10,60 @@ import Forecasts from "../Home/Forecasts";
 const API_URL = (city) =>
   `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=2a8fb0bcdd810f17dd9981361e9e9eb0&lang=fr&units=metric`;
 
-export default function CityWeather({ navigation, route }) {
+export default function CityWeather({ route }) {
   const [data, setData] = useState(null);
+  const [erreur, setErreur] = useState(false);
 
   const getWeather = async () => {
     try {
       const response = await axios.get(API_URL(route.params?.city));
       setData(response.data);
+      // Si storage data contient pas la ville écit on l'ajoute au tableau sinon on ne fait rien.
+      if (!storageData.cities.includes(route.params?.city)) {
+        createTwoButtonAlert(route.params?.city);
+      }
     } catch (e) {
       console.log("Erreur dans getWeather" + e);
+      setErreur(true);
     }
   };
 
-  useState(() => {
+  const createTwoButtonAlert = () =>
+    Alert.alert(
+      "Nouvelle ville",
+      "Ajouter la nouvelle ville dans votre liste de ville favoris ?",
+      [
+        {
+          text: "Non",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: "Oui",
+          onPress: () => {
+            storageData.cities.push(route.params?.city);
+            console.log("City ajoutée " + route.params?.city);
+          },
+        },
+      ]
+    );
+
+  useEffect(() => {
     getWeather();
   }, []);
   if (data) {
     return (
       <View style={styles.container}>
-        <CurrentWeather key={data} dataCurrent={data} />
+        <CurrentWeather dataCurrent={data} />
         <Forecasts key={data} dataForecasts={data} />
       </View>
+    );
+  }
+  if (erreur) {
+    return (
+      <SafeAreaView>
+        <Text>Ville introuvable ! </Text>
+      </SafeAreaView>
     );
   }
 }
