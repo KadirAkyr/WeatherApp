@@ -4,7 +4,7 @@ const storageData = require("./storage.json");
 import React from "react";
 
 export default function Menu({ navigation }) {
-  const [text, onChangeText] = React.useState("Useless Text");
+  const [text, onChangeText] = React.useState("Entrez une nouvelle ville");
 
   const submit = () => {
     //Enlever les espaces avant et après le mot et tout mettre en minuscule
@@ -24,7 +24,6 @@ export default function Menu({ navigation }) {
       <View style={styles.container}>
         <TextInput
           style={styles.input}
-          placeholder="Entrez une nouvelle ville"
           value={text}
           onChangeText={onChangeText}
           clearTextOnFocus={true}
