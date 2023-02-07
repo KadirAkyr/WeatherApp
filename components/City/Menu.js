@@ -19,25 +19,44 @@ export default function Menu({ navigation }) {
       console.log("Erreur dans Menu.js " + e);
     }
   };
-  return (
-    <View>
-      <View style={styles.container}>
-        <TextInput
-          style={styles.input}
-          value={text}
-          onChangeText={onChangeText}
-          clearTextOnFocus={true}
-          onEndEditing={() => submit()}
-        />
+  if (storageData.cities.length > 0) {
+    return (
+      <View>
+        <View style={styles.container}>
+          <TextInput
+            style={styles.input}
+            value={text}
+            onChangeText={onChangeText}
+            clearTextOnFocus={true}
+            onEndEditing={() => submit()}
+          />
+        </View>
+        <Text style={styles.divider}> ───── Saved Cities ─────</Text>
+        <ScrollView>
+          {storageData.cities.map((city) => (
+            <CityOverView key={city} city={city} navigation={navigation} />
+          ))}
+        </ScrollView>
       </View>
-      <Text style={styles.divider}> ───── Saved Cities ─────</Text>
-      <ScrollView>
-        {storageData.cities.map((city) => (
-          <CityOverView key={city} city={city} navigation={navigation} />
-        ))}
-      </ScrollView>
-    </View>
-  );
+    );
+  } else {
+    return (
+      <View>
+        <View style={styles.container}>
+          <TextInput
+            style={styles.input}
+            value={text}
+            onChangeText={onChangeText}
+            clearTextOnFocus={true}
+            onEndEditing={() => submit()}
+          />
+        </View>
+        <View>
+          <Text style={styles.text}>Pas de ville dans vos favoris ! </Text>
+        </View>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -59,5 +78,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 10,
     fontSize: 20,
+  },
+  text: {
+    fontSize: 26,
+    fontWeight: "500",
+    color: "#130D33",
+    alignSelf: "center",
+    marginTop: 50,
   },
 });
