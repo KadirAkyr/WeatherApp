@@ -61,8 +61,8 @@ export default function CityWeather({ route }) {
   }
   if (erreur) {
     return (
-      <SafeAreaView>
-        <Text>Ville introuvable ! </Text>
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.text}>Ville introuvable ! </Text>
       </SafeAreaView>
     );
   }
@@ -75,5 +75,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#FFE5B4",
     padding: 8,
+  },
+  text: {
+    fontSize: 26,
+    fontWeight: "500",
+    color: "#130D33",
   },
 });
